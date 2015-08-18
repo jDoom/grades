@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="60dp" android:id="@+id/rowl"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tantárgy neve"
+        android:id="@+id/wTantargyNevText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp"
+        android:textColor="#e7e7e7" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Jegyek Száma:"
+        android:id="@+id/wJegySzamCim"
+        android:paddingRight="0dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:textColor="#ffb4b4b4"
+        android:layout_below="@+id/wTantargyNevText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="N/A"
+        android:id="@+id/wJegySzamText"
+        android:paddingRight="0dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:textColor="#ffb4b4b4"
+        android:layout_below="@+id/wTantargyNevText"
+        android:layout_toRightOf="@+id/wJegySzamCim"
+        android:layout_toEndOf="@+id/wJegySzamCim" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Átlag"
+        android:id="@+id/wAtlagText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/wJegySzamText"
+        android:gravity="center_vertical"
+        android:textSize="30dp"
+        android:layout_marginRight="10dp" />
+</RelativeLayout>

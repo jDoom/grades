@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Tantárgy neve:"
+        android:id="@+id/textView4"
+        android:padding="10dp"
+        android:textColor="#ffffffff" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tantargyEditText"
+        android:textColor="#ffffffff"
+        android:textColorHint="#ff707070"
+        android:hint="Tantárgy neve..." />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jegyek törlése"
+        android:id="@+id/jegytorol" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kész"
+        android:id="@+id/tantargyHozzaadButton"
+        android:textColor="#FFFFFF"
+        android:paddingTop="0dp" />
+</LinearLayout>

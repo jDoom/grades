@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceSmall"
+android:text="Jegyek száma:"
+android:id="@+id/textView9"
+android:paddingRight="0dp"
+android:paddingLeft="0dp"
+android:paddingTop="0dp"
+android:padding="5dp"
+android:textColor="#ffb4b4b4"
+android:layout_alignParentTop="true"
+android:layout_toLeftOf="@+id/jegySzamText"
+android:layout_toStartOf="@+id/jegySzamText" />
+
+    <ImageView
+android:layout_width="20dp"
+android:layout_height="20dp"
+android:id="@+id/messageImage"
+android:src="@drawable/warning"
+android:layout_below="@+id/jegySzamText"
+android:layout_alignParentRight="true"
+android:layout_alignParentEnd="true"
+android:layout_marginRight="5dp" />
+
+    <TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceSmall"
+android:text="Átlag: "
+android:id="@+id/textView3"
+android:layout_below="@+id/textView"
+android:layout_alignParentLeft="true"
+android:layout_alignParentStart="true"
+android:paddingLeft="10dp"
+android:textColor="#ffb4b4b4"
+android:paddingBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Thisisthethext"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:textColor="#ffffffff" />
+
+    <TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceSmall"
+android:text="N/A"
+android:id="@+id/atlagText"
+android:textColor="#ffb4b4b4"
+android:paddingBottom="5dp"
+android:layout_alignBottom="@+id/textView3"
+android:layout_toRightOf="@+id/textView3"
+android:layout_toEndOf="@+id/textView3"
+android:textSize="16dp" />
+
+    <TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceSmall"
+android:text="N/A"
+android:id="@+id/jegySzamText"
+android:layout_alignParentTop="true"
+android:layout_alignParentRight="true"
+android:layout_alignParentEnd="true"
+android:paddingRight="5dp"
+android:paddingLeft="0dp"
+android:paddingTop="5dp"
+android:textColor="#ffb4b4b4"
+android:paddingBottom="5dp"
+android:transitionName="atlag" />
+
+
+</RelativeLayout>

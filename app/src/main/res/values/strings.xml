@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Grades</string>
+    <string name="navigation_drawer_open">1</string>
+    <string name="navigation_drawer_close">1</string>
+    <string name="title_activity_jegyhozzaadas">Jegy hozzáadása</string>
+    <string name="title_activity_tantargy_nezet">Tantárgy Nézet</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>

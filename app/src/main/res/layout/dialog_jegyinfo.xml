@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="103dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tantárgy:"
+            android:id="@+id/jegyViewTantargyText"
+            android:layout_marginBottom="3dp"
+            android:textColor="#ffb6b6b6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Dátum:"
+            android:id="@+id/jegyViewDatumText"
+            android:layout_marginBottom="3dp"
+            android:textColor="#ffb6b6b6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Fontos:"
+            android:id="@+id/jegyViewFontosText"
+            android:layout_marginBottom="8dp"
+            android:textColor="#ffb6b6b6" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:id="@+id/jegyViewJegyImage"
+            android:src="@drawable/f1"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:transitionName="theJegy" />
+    </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Megjegyzés:"
+        android:id="@+id/textView7"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#ffb6b6b6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nincs megyjegyzés..."
+        android:id="@+id/jegyViewKommentText"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Szerkesztés"
+            android:id="@+id/jegyViewSzerkButton" />
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/jegyViewOkButton" />
+    </LinearLayout>
+
+</LinearLayout>

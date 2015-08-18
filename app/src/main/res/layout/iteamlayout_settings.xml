@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/settingsFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/settingName"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="value"
+        android:id="@+id/settingValue"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#ffd4d4d4" />
+    <View android:id="@+id/drawerSeparator"
+        android:background="#ff6a6a6a"
+        android:layout_width = "fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignBottom="@+id/settingValue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+d</LinearLayout>
