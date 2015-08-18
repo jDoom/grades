@@ -109,16 +109,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    protected void onPause() {
-        Intent intent = new Intent(this, GradesWidget.class);
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), GradesWidget.class));
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
-        sendBroadcast(intent);
-        super.onPause();
-    }
-
-    @Override
     public void onNavigationDrawerItemSelected(int position) {
         Fragment objFragment = null;
         menuPosition = position;
@@ -187,39 +177,5 @@ public class MainActivity extends ActionBarActivity
     static void ShowTantargyHozzaado(){
         TantargyHozzaadoDialog javDiag = new TantargyHozzaadoDialog();
         javDiag.show(MainActivity.fmgr,"asd");
-    }
-    static void SaveAll(){
-        try {
-
-            FileOutputStream fos =  cx.openFileOutput("ellenorzo", Context.MODE_PRIVATE);
-
-            fos.write((String.valueOf(Settings.jelszo)+"\r\n").getBytes());
-            if(Settings.jelszo){
-                fos.write((Settings.jelszoText+"\r\n").getBytes());
-            }
-            fos.write((String.valueOf(Settings.javitHatar)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.ketesMin)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.ketesMax)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.tantargyakSzama)+"\r\n").getBytes());
-            for(int i=0;i<Settings.tantargyakSzama;i++){
-                fos.write((Settings.tantargyak[i].nev+"\r\n").getBytes());
-                fos.write((String.valueOf(Settings.tantargyak[i].jegyekSzama)+"\r\n").getBytes());
-                for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].getErtek()) + "\r\n").getBytes());
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()) + "\r\n").getBytes());
-                    if(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()){
-                        fos.write((Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\r\n").getBytes());
-                    }
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isFontos()) + "\r\n").getBytes());
-                    fos.write((Settings.tantargyak[i].jegyek[n].getDatum() + "\r\n").getBytes());
-                }
-            }
-
-            fos.close();
-
-        } catch (Exception t) {
-
-            t.printStackTrace();
-        }
     }
 }

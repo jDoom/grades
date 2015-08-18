@@ -89,7 +89,7 @@ public class menu2_fragment extends Fragment {
                                     Settings.tantargyakSzama--;
                                     Settings.tantargyList.remove(position);
                                     createList();
-                                    MainActivity.SaveAll();
+                                    Settings.SaveAll(getContext());
                                     break;
                             }
                         }

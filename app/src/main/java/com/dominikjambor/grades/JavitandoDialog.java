@@ -13,7 +13,7 @@ import android.widget.NumberPicker;
  */
 public class JavitandoDialog extends DialogFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_javitando, null);
         getDialog().setTitle("Javítandó határ");
         final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.javitandoPicker);
@@ -25,7 +25,7 @@ public class JavitandoDialog extends DialogFragment {
                 Settings.javitHatar=(d/10)+1;
                 menu3_fragment.update();
                 dismiss();
-                MainActivity.SaveAll();
+                Settings.SaveAll(container.getContext());
             }
         });
         String values[] = new String[50];

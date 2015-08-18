@@ -15,7 +15,7 @@ import android.widget.NumberPicker;
 public class KetesDialog extends DialogFragment {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_ketes, null);
         getDialog().setTitle("Kétes határok");
 
@@ -36,7 +36,7 @@ public class KetesDialog extends DialogFragment {
                 Settings.ketesMax=high.getValue();
                 Settings.ketesMin=low.getValue();
                 menu3_fragment.update();
-                MainActivity.SaveAll();
+                Settings.SaveAll(container.getContext());
                 dismiss();
             }
         });

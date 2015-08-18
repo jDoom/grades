@@ -16,7 +16,7 @@ import android.widget.Toast;
  */
 public class TantargyHozzaadoDialog extends DialogFragment{
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_tantargyhozzaadas, null);
         getDialog().setTitle("Új tantárgy hozzáadása");
        // getDialog().getWindow().setBackgroundDrawableResource(R.drawable.diag_box);
@@ -38,7 +38,7 @@ public class TantargyHozzaadoDialog extends DialogFragment{
                     Settings.tantargyList.add(nev);
                     menu2_fragment.createList();
                     dismiss();
-                    MainActivity.SaveAll();
+                    Settings.SaveAll(container.getContext());
                     menu2_fragment.fab.show();
                 }
             }

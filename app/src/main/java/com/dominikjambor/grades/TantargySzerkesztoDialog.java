@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class TantargySzerkesztoDialog extends DialogFragment {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_tantargyszerkeszto, null);
         getDialog().setTitle("Tantárgy szerkesztése");
         menu2_fragment.fab.hide();
@@ -40,7 +40,7 @@ public class TantargySzerkesztoDialog extends DialogFragment {
                     menu2_fragment.createList();
                     dismiss();
                     menu2_fragment.fab.show();
-                    MainActivity.SaveAll();
+                    Settings.SaveAll(container.getContext());
                 }
             }
         });
@@ -56,7 +56,7 @@ public class TantargySzerkesztoDialog extends DialogFragment {
                                 Toast.makeText(view.getContext(), Settings.tantargyak[menu2_fragment.szerkesztid].nev+" jegyei törölve.",
                                         Toast.LENGTH_SHORT).show();
                                 Settings.tantargyak[menu2_fragment.szerkesztid].jegyekSzama=0;
-                                MainActivity.SaveAll();
+                                Settings.SaveAll(container.getContext());
                                 break;
                         }
                     }

@@ -1,6 +1,10 @@
 package com.dominikjambor.grades;
 
+import android.app.Application;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -92,6 +96,45 @@ public class Settings {
             }
 
         }
+    }
+    static void SaveAll(Context context){
+        try {
+
+            FileOutputStream fos =  context.openFileOutput("ellenorzo", Context.MODE_PRIVATE);
+
+            fos.write((String.valueOf(Settings.jelszo)+"\r\n").getBytes());
+            if(Settings.jelszo){
+                fos.write((Settings.jelszoText+"\r\n").getBytes());
+            }
+            fos.write((String.valueOf(Settings.javitHatar)+"\r\n").getBytes());
+            fos.write((String.valueOf(Settings.ketesMin)+"\r\n").getBytes());
+            fos.write((String.valueOf(Settings.ketesMax)+"\r\n").getBytes());
+            fos.write((String.valueOf(Settings.tantargyakSzama)+"\r\n").getBytes());
+            for(int i=0;i<Settings.tantargyakSzama;i++){
+                fos.write((Settings.tantargyak[i].nev+"\r\n").getBytes());
+                fos.write((String.valueOf(Settings.tantargyak[i].jegyekSzama)+"\r\n").getBytes());
+                for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
+                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].getErtek()) + "\r\n").getBytes());
+                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()) + "\r\n").getBytes());
+                    if(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()){
+                        fos.write((Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\r\n").getBytes());
+                    }
+                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isFontos()) + "\r\n").getBytes());
+                    fos.write((Settings.tantargyak[i].jegyek[n].getDatum() + "\r\n").getBytes());
+                }
+            }
+
+            fos.close();
+
+        } catch (Exception t) {
+
+            t.printStackTrace();
+        }
+        Intent intent = new Intent(context, GradesWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, GradesWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        context.sendBroadcast(intent);
     }
     static void updateTantargyList(){
         tantargyList.clear();
