@@ -38,7 +38,7 @@ public class TantargyHozzaadoDialog extends DialogFragment{
                     Settings.tantargyList.add(nev);
                     menu2_fragment.createList();
                     dismiss();
-                    Settings.SaveAll(container.getContext());
+                    Settings.SaveAll(MainActivity.cx);
                     menu2_fragment.fab.show();
                 }
             }

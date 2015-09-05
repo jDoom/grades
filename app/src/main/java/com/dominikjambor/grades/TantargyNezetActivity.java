@@ -121,10 +121,12 @@ public class TantargyNezetActivity extends ActionBarActivity {
                 showJegyDiag();
             }
         });
-        atlagTextView.setText(String.valueOf(Settings.tantargyak[tid].getAtlag(2)));
-        jegySzamText.setText("Jegyek száma: " + String.valueOf(Settings.tantargyak[tid].jegyekSzama));
-        legutobbiJegy.setText("Legutóbbi jegy: " + String.valueOf(Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getErtek()));
-        legutobbiDatum.setText("Legutóbbi dátum: " + Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getDatum());
+        if(Settings.tantargyak[tid].jegyekSzama>0) {
+            atlagTextView.setText(String.valueOf(Settings.tantargyak[tid].getAtlag(2)));
+            jegySzamText.setText("Jegyek száma: " + String.valueOf(Settings.tantargyak[tid].jegyekSzama));
+            legutobbiJegy.setText("Legutóbbi jegy: " + String.valueOf(Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getErtek()));
+            legutobbiDatum.setText("Legutóbbi dátum: " + Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getDatum());
+        }
     }
 
     static void showJegyDiag()

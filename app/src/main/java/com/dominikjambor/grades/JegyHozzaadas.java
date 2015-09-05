@@ -448,12 +448,12 @@ public class JegyHozzaadas extends ActionBarActivity {
                     Settings.tantargyak[spinner.getSelectedItemPosition()].jegyek[n] = tmp;
                 }
             }
-        Settings.SaveAll(getApplicationContext());
+        Settings.SaveAll(this);
         if(szerk)
         {
             TantargyNezetActivity.update();
         }
-        else if(tantargyAdd&&tnezet){
+        else if(tantargyAdd&&tnezet&&!getIntent().hasExtra("FROMWIDGET")){
             TantargyNezetActivity.update();
         }
         menu1_fragment.update();

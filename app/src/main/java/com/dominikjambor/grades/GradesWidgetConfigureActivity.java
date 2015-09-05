@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 
 /**
  * The configuration screen for the {@link GradesWidget GradesWidget} AppWidget.
@@ -15,7 +19,6 @@ import android.widget.EditText;
 public class GradesWidgetConfigureActivity extends Activity {
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
     private static final String PREFS_NAME = "com.dominikjambor.grades.GradesWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
 
@@ -32,8 +35,6 @@ public class GradesWidgetConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.grades_widget_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
-        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -49,51 +50,62 @@ public class GradesWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(GradesWidgetConfigureActivity.this, mAppWidgetId));
+        final Spinner themeSpinner = (Spinner)findViewById(R.id.wcThemelist);
+        final Spinner actionSpinner = (Spinner)findViewById(R.id.wcActionlist);
+        Button okButton = (Button)findViewById(R.id.wcOkButton);
+
+        ArrayAdapter<String> ta = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item);
+        ta.add("Sötét");
+        ta.add("Világos");
+        themeSpinner.setAdapter(ta);
+
+        ArrayAdapter<String> aa = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item);
+        aa.add("Tantárgy megnyitása");
+        aa.add("Jegy hozzáadása");
+        actionSpinner.setAdapter(aa);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Context context = GradesWidgetConfigureActivity.this;
+                saveTitlePref(context, mAppWidgetId,"theme",String.valueOf(themeSpinner.getSelectedItemPosition()));
+                saveTitlePref(context,mAppWidgetId,"action",String.valueOf(actionSpinner.getSelectedItemPosition()));
+
+                // It is the responsibility of the configuration activity to update the app widget
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                GradesWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+
+                // Make sure we pass back the original appWidgetId
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                setResult(RESULT_OK, resultValue);
+                finish();
+            }
+        });
     }
 
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            final Context context = GradesWidgetConfigureActivity.this;
-
-            // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
-
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            GradesWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
-
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
+    static void saveTitlePref(Context context, int appWidgetId,String prefname, String text) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
+        prefs.putString(PREF_PREFIX_KEY + appWidgetId+prefname, text);
         prefs.commit();
     }
 
     // Read the prefix from the SharedPreferences object for this widget.
     // If there is no preference saved, get the default from a resource
-    static String loadTitlePref(Context context, int appWidgetId) {
+    static String loadTitlePref(Context context, int appWidgetId,String prefname) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
+        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId+prefname, null);
         if (titleValue != null) {
             return titleValue;
         } else {
-            return context.getString(R.string.appwidget_text);
+            return "0";
         }
     }
 
-    static void deleteTitlePref(Context context, int appWidgetId) {
+    static void deleteTitlePref(Context context, int appWidgetId,String prefname) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
+        prefs.remove(PREF_PREFIX_KEY + appWidgetId+prefname);
         prefs.commit();
     }
 }

@@ -23,8 +23,12 @@ public class KetesDialog extends DialogFragment {
         final NumberPicker high = (NumberPicker) view.findViewById(R.id.highEndNumberPicker);
         low.setMinValue(0);
         low.setMaxValue(6);
+        low.setValue(Settings.ketesMin);
+        low.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         high.setMinValue(0);
         high.setMaxValue(6);
+        high.setValue(Settings.ketesMax);
+        high.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         String[] t = new String[]{"x.35","x.40","x.45","x.50","x.55","x.60","x.65"};
         low.setDisplayedValues(t);
         high.setDisplayedValues(t);
@@ -35,8 +39,8 @@ public class KetesDialog extends DialogFragment {
             public void onClick(View v) {
                 Settings.ketesMax=high.getValue();
                 Settings.ketesMin=low.getValue();
+                Settings.SaveAll(MainActivity.cx);
                 menu3_fragment.update();
-                Settings.SaveAll(container.getContext());
                 dismiss();
             }
         });

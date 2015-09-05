@@ -1,18 +1,12 @@
 package com.dominikjambor.grades;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by j-dom on 8/16/2015.
@@ -50,21 +44,36 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
     }
 
     @Override
-    public RemoteViews getViewAt(int position)
-    {
+    public RemoteViews getViewAt(int position) {
         Log.d("WidgetCreatingView", "WidgetCreatingView");
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(),
-                R.layout.itemlayout_widgetlistview_tl);
+        int theme = Integer.parseInt(GradesWidgetConfigureActivity.loadTitlePref(context, appWidgetId, "theme"));
+        int action = Integer.parseInt(GradesWidgetConfigureActivity.loadTitlePref(context, appWidgetId, "action"));
+        RemoteViews remoteView;
+        if (theme == 1) {
+            remoteView = new RemoteViews(context.getPackageName(),
+                    R.layout.itemlayout_widgetlistview_tl_light);
+        } else {
+            remoteView = new RemoteViews(context.getPackageName(),
+                    R.layout.itemlayout_widgetlistview_tl_dark);
+        }
         remoteView.setTextViewText(R.id.wTantargyNevText, Settings.tantargyList.get(position).toString());
         remoteView.setTextViewText(R.id.wJegySzamText, String.valueOf(Settings.tantargyak[position].jegyekSzama));
         remoteView.setTextViewText(R.id.wAtlagText, String.valueOf(Settings.tantargyak[position].getAtlag(2)));
 
         Bundle extras = new Bundle();
-        extras.putInt("pos", position);
+        if (action == 1) {
+            extras.putInt("TANTARGY", position);
+            extras.putBoolean("TNEZET", true);
+            extras.putBoolean("FROMWIDGET",true);
+
+        } else {
+            extras.putInt("pos", position);
+        }
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
         // Make it possible to distinguish the individual on-click
         // action of a given item
+        Log.w("UPDATING ITEM",String.valueOf(position));
         remoteView.setOnClickFillInIntent(R.id.rowl, fillInIntent);
 
         return remoteView;
