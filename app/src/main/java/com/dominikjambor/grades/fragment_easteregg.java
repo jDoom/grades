@@ -11,7 +11,7 @@ import android.webkit.WebView;
 /**
  * Created by Dominik on 1/6/2015.
  */
-public class menu4_fragment extends Fragment {
+public class fragment_easteregg extends Fragment {
     View rootView;
     MediaPlayer m = new MediaPlayer();
     @Override

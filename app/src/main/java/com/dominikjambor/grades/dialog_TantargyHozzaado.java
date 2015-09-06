@@ -3,7 +3,6 @@ package com.dominikjambor.grades;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 /**
  * Created by Dominik on 1/31/2015.
  */
-public class TantargyHozzaadoDialog extends DialogFragment{
+public class dialog_TantargyHozzaado extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_tantargyhozzaadas, null);
@@ -23,7 +22,7 @@ public class TantargyHozzaadoDialog extends DialogFragment{
 
         final EditText tantargyNev = (EditText) view.findViewById(R.id.tantargyEditText);
         Button hozzaad = (Button) view.findViewById(R.id.tantargyHozzaadButton);
-        menu2_fragment.fab.hide();
+        fragment_tantargyak.fab.hide();
         hozzaad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,13 +32,13 @@ public class TantargyHozzaadoDialog extends DialogFragment{
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Settings.tantargyak[Settings.tantargyakSzama] = new Tantargy(nev, (byte) 0);
+                    Settings.tantargyak[Settings.tantargyakSzama] = new Tantargy(nev, 0);
                     Settings.tantargyakSzama++;
                     Settings.tantargyList.add(nev);
-                    menu2_fragment.createList();
+                    fragment_tantargyak.createList();
                     dismiss();
                     Settings.SaveAll(MainActivity.cx);
-                    menu2_fragment.fab.show();
+                    fragment_tantargyak.fab.show();
                 }
             }
         });
@@ -48,7 +47,7 @@ public class TantargyHozzaadoDialog extends DialogFragment{
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        menu2_fragment.fab.show();
+        fragment_tantargyak.fab.show();
         super.onDismiss(dialog);
     }
 }

@@ -12,7 +12,7 @@ import android.widget.NumberPicker;
 /**
  * Created by Dominik on 4/7/2015.
  */
-public class KetesDialog extends DialogFragment {
+public class dialog_Ketes extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class KetesDialog extends DialogFragment {
                 Settings.ketesMax=high.getValue();
                 Settings.ketesMin=low.getValue();
                 Settings.SaveAll(MainActivity.cx);
-                menu3_fragment.update();
+                fragment_settings.update();
                 dismiss();
             }
         });

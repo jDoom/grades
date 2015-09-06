@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Dominik on 1/6/2015.
  */
-public class menu3_fragment extends Fragment {
+public class fragment_settings extends Fragment {
     static View rootView;
     static List settingList = new ArrayList<String>();
     static List settingValueList = new ArrayList<String>();
@@ -55,11 +55,11 @@ public class menu3_fragment extends Fragment {
         }
     }
     static void ShowJavitandoDialog(){
-        JavitandoDialog javDiag = new JavitandoDialog();
+        dialog_Javitando javDiag = new dialog_Javitando();
         javDiag.show(MainActivity.fmgr,"asd");
     }
     static void ShowKetesDialog(){
-        KetesDialog javDiag = new KetesDialog();
+        dialog_Ketes javDiag = new dialog_Ketes();
         javDiag.show(MainActivity.fmgr,"asd");
     }
     static void update()

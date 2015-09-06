@@ -377,7 +377,7 @@ public class JegyHozzaadas extends ActionBarActivity {
                                         Settings.tantargyak[tanid].jegyek[i]=Settings.tantargyak[tanid].jegyek[i+1];
                                     }
                                     Settings.SaveAll(cx);
-                                    menu1_fragment.update();
+                                    fragment_main.update();
                                     if(Settings.tantargyak[tanid].jegyekSzama==0)
                                         TantargyNezetActivity.dis.finish();
                                     else
@@ -456,7 +456,7 @@ public class JegyHozzaadas extends ActionBarActivity {
         else if(tantargyAdd&&tnezet&&!getIntent().hasExtra("FROMWIDGET")){
             TantargyNezetActivity.update();
         }
-        menu1_fragment.update();
+        fragment_main.update();
         finish();
     }
     @Override

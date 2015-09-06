@@ -7,7 +7,9 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:backupAgent=".CloudBackupAgent">
+        <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAILwMYiDQ4GdwgWL-z8-cJGsgcR4zcGEjUIJ83iQ" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

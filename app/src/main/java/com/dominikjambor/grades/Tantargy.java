@@ -7,10 +7,10 @@ import java.math.RoundingMode;
  * Created by Dominik on 1/16/2015.
  */
 public class Tantargy {
-    byte jegyekSzama;
+    int jegyekSzama;
     Jegy jegyek[];
     String nev;
-    public Tantargy(String n, byte j){
+    public Tantargy(String n, int j){
         jegyekSzama = j;
         jegyek = new Jegy[100];
         nev = n;

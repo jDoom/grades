@@ -6,11 +6,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 
 /**
@@ -94,10 +92,8 @@ public class GradesWidget extends AppWidgetProvider {
         views.setPendingIntentTemplate(R.id.wListView, clickPI);
 
         // Instruct the widget manager to update the widget
-        ComponentName component=new ComponentName(context,WidgetService.class);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.wListView);
         appWidgetManager.updateAppWidget(appWidgetId, views);
-        Log.w("UPDATE","UPDATED");
 
     }
 }

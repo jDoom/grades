@@ -13,7 +13,7 @@ import android.widget.TextView;
 /**
  * Created by Dominik on 1/31/2015.
  */
-public class JegyNezetDialog extends DialogFragment{
+public class dialog_JegyNezet extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_jegyinfo, null);

@@ -131,7 +131,7 @@ public class TantargyNezetActivity extends ActionBarActivity {
 
     static void showJegyDiag()
     {
-        JegyNezetDialog jdiag = new JegyNezetDialog();
+        dialog_JegyNezet jdiag = new dialog_JegyNezet();
         jdiag.show(fmr, "aaa");
     }
 

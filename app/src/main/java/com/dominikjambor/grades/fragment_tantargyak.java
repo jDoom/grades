@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by Dominik on 1/6/2015.
  */
-public class menu2_fragment extends Fragment {
+public class fragment_tantargyak extends Fragment {
     static View rootView;
     static LayoutInflater inflaterr;
     static ListView list;
@@ -112,7 +112,7 @@ public class menu2_fragment extends Fragment {
         }
     }
     static void ShowTantargySzerkeszto(){
-        TantargySzerkesztoDialog javDiag = new TantargySzerkesztoDialog();
+        dialog_TantargySzerkeszto javDiag = new dialog_TantargySzerkeszto();
         javDiag.show(MainActivity.fmgr,"asd");
     }
 }

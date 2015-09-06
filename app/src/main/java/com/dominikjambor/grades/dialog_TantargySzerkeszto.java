@@ -15,16 +15,16 @@ import android.widget.Toast;
 /**
  * Created by Dominik on 1/31/2015.
  */
-public class TantargySzerkesztoDialog extends DialogFragment {
+public class dialog_TantargySzerkeszto extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_tantargyszerkeszto, null);
         getDialog().setTitle("Tantárgy szerkesztése");
-        menu2_fragment.fab.hide();
+        fragment_tantargyak.fab.hide();
         //getDialog().getWindow().setBackgroundDrawableResource(R.drawable.diag_box);
         final EditText tantargyNev = (EditText) view.findViewById(R.id.tantargyEditText);
-        tantargyNev.setText(Settings.tantargyak[menu2_fragment.szerkesztid].nev);
+        tantargyNev.setText(Settings.tantargyak[fragment_tantargyak.szerkesztid].nev);
         Button hozzaad = (Button) view.findViewById(R.id.tantargyHozzaadButton);
         hozzaad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,11 +35,11 @@ public class TantargySzerkesztoDialog extends DialogFragment {
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Settings.tantargyak[menu2_fragment.szerkesztid].nev = nev;
-                    Settings.tantargyList.set(menu2_fragment.szerkesztid,nev);
-                    menu2_fragment.createList();
+                    Settings.tantargyak[fragment_tantargyak.szerkesztid].nev = nev;
+                    Settings.tantargyList.set(fragment_tantargyak.szerkesztid,nev);
+                    fragment_tantargyak.createList();
                     dismiss();
-                    menu2_fragment.fab.show();
+                    fragment_tantargyak.fab.show();
                     Settings.SaveAll(container.getContext());
                 }
             }
@@ -53,9 +53,9 @@ public class TantargySzerkesztoDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(view.getContext(), Settings.tantargyak[menu2_fragment.szerkesztid].nev+" jegyei törölve.",
+                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+" jegyei törölve.",
                                         Toast.LENGTH_SHORT).show();
-                                Settings.tantargyak[menu2_fragment.szerkesztid].jegyekSzama=0;
+                                Settings.tantargyak[fragment_tantargyak.szerkesztid].jegyekSzama=0;
                                 Settings.SaveAll(container.getContext());
                                 break;
                         }
@@ -63,7 +63,7 @@ public class TantargySzerkesztoDialog extends DialogFragment {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("'"+Settings.tantargyak[menu2_fragment.szerkesztid].nev+"' jegyeinek törlése?").setPositiveButton("Igen", dialogClickListener)
+                builder.setMessage("'"+Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+"' jegyeinek törlése?").setPositiveButton("Igen", dialogClickListener)
                         .setNegativeButton("Nem", dialogClickListener).show();
             }
         });
@@ -73,6 +73,6 @@ public class TantargySzerkesztoDialog extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        menu2_fragment.fab.show();
+        fragment_tantargyak.fab.show();
     }
 }

@@ -2,7 +2,6 @@ package com.dominikjambor.grades;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.NumberPicker;
 /**
  * Created by Dominik on 1/24/2015.
  */
-public class JavitandoDialog extends DialogFragment {
+public class dialog_Javitando extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_javitando, null);
@@ -25,7 +24,7 @@ public class JavitandoDialog extends DialogFragment {
                 float d = numberPicker.getValue();
                 Settings.javitHatar=(d/10)+1;
                 Settings.SaveAll(MainActivity.cx);
-                menu3_fragment.update();
+                fragment_settings.update();
                 dismiss();
             }
         });

@@ -1,9 +1,12 @@
 package com.dominikjambor.grades;
 
+import android.app.backup.BackupManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -17,14 +20,12 @@ import java.util.List;
  */
 public class Settings {
     static Tantargy tantargyak[] = new Tantargy[100];
-    static byte tantargyakSzama=0;
     static float javitHatar=0;
-    static int ketesMin=0,ketesMax=0;
+    static int ketesMin=0,ketesMax=0,tantargyakSzama=0;
     static boolean jelszo=false;
     static String jelszoText;
     static List tantargyList = new ArrayList<String>();
-    static void LoadSavedData(Context context){
-        //JELSZO MI
+    static void LoadSavedData(Context context) {
         //JAV HAT
         //KETMIN
         //KETMAX
@@ -34,101 +35,64 @@ public class Settings {
         //MEG
         //FONTOS
         //DATUM
-        try {
+        SharedPreferences prefs = context.getSharedPreferences(
+                "com.dominikjambor.grades.data", Context.MODE_PRIVATE);
 
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(context.openFileInput("ellenorzo")));
-            Settings.jelszo = Boolean.parseBoolean(inputReader.readLine());
-            if(Settings.jelszo){
-                Settings.jelszoText = inputReader.readLine();
-            }
-            Settings.javitHatar = Float.parseFloat(inputReader.readLine());
-            Settings.ketesMin = Integer.parseInt(inputReader.readLine());
-            Settings.ketesMax = Integer.parseInt(inputReader.readLine());
-            Settings.tantargyakSzama = Byte.parseByte(inputReader.readLine());
-            for(int i=0;i<Settings.tantargyakSzama;i++){
-                byte jegyszam;
-                String tnev;
-                tnev = inputReader.readLine();
-                jegyszam = Byte.parseByte(inputReader.readLine());
-                Settings.tantargyak[i] = new Tantargy(tnev,jegyszam);
-                for(int n=0;n<jegyszam;n++) {
-                    String  megjegyzes="semmi";
-                    Boolean vanMegjegyzes, fontos;
-                    Byte ertek;
-                    String datum;
-
-                    ertek = Byte.parseByte(inputReader.readLine());
-                    vanMegjegyzes = Boolean.valueOf(inputReader.readLine());
-                    if (vanMegjegyzes) {
-                        megjegyzes = inputReader.readLine();
-                    }
-                    fontos = Boolean.parseBoolean(inputReader.readLine());
-                    datum = inputReader.readLine();
-                    Settings.tantargyak[i].jegyek[n] = new Jegy();
-                    Settings.tantargyak[i].jegyek[n].setErtek(ertek);
-                    Settings.tantargyak[i].jegyek[n].setVanMegjegyzes(vanMegjegyzes);
-                    if(vanMegjegyzes)
-                        Settings.tantargyak[i].jegyek[n].setMegjegyzes(megjegyzes);
-                    Settings.tantargyak[i].jegyek[n].setFontos(fontos);
-                    Settings.tantargyak[i].jegyek[n].setDatum(datum);
+        Settings.javitHatar = prefs.getFloat("javithatar", 4.0f);
+        Settings.ketesMin = prefs.getInt("ketesmin", 2);
+        Settings.ketesMin = prefs.getInt("ketesmax", 4);
+        Settings.tantargyakSzama = prefs.getInt("tantargyakszama", 0);
+        String tanPref = prefs.getString("tan", "");
+        String[] tanPrefS = tanPref.split(System.getProperty("line.separator"));
+        int p=0;
+        for(int i=0;i<Settings.tantargyakSzama;i++){
+            Settings.tantargyak[i] = new Tantargy(tanPrefS[p],Integer.parseInt(tanPrefS[p+1].trim()));
+            p+=2;
+            for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
+                Settings.tantargyak[i].jegyek[n] = new Jegy();
+                Settings.tantargyak[i].jegyek[n].setErtek(Integer.parseInt(tanPrefS[p].trim()));
+                p++;
+                Settings.tantargyak[i].jegyek[n].setVanMegjegyzes(Boolean.parseBoolean(tanPrefS[p].trim()));
+                p++;
+                if(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()){
+                    Settings.tantargyak[i].jegyek[n].setMegjegyzes(tanPrefS[p]);
+                    p++;
                 }
-
+                Settings.tantargyak[i].jegyek[n].setFontos(Boolean.parseBoolean(tanPrefS[p].trim()));
+                p++;
+                Settings.tantargyak[i].jegyek[n].setDatum(tanPrefS[p]);
+                p++;
             }
-
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-            Settings.tantargyakSzama = 0;
-            try {
-
-                FileOutputStream fos = context.openFileOutput("ellenorzo", Context.MODE_PRIVATE);
-
-                fos.write("0\n0\n0\n0\n0".getBytes());
-
-                fos.close();
-
-            } catch (Exception t) {
-
-                t.printStackTrace();
-
-            }
-
         }
+
     }
     static void SaveAll(Context context){
-        try {
 
-            FileOutputStream fos =  context.openFileOutput("ellenorzo", Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(
+                "com.dominikjambor.grades.data", Context.MODE_PRIVATE);
+        prefs.edit().putFloat("javithatar", Settings.javitHatar).apply();
+        prefs.edit().putInt("ketesmin", Settings.ketesMin).apply();
+        prefs.edit().putInt("ketesmax", Settings.ketesMax).apply();
+        prefs.edit().putInt("tantargyakszama", Settings.tantargyakSzama).apply();
 
-            fos.write((String.valueOf(Settings.jelszo)+"\r\n").getBytes());
-            if(Settings.jelszo){
-                fos.write((Settings.jelszoText+"\r\n").getBytes());
-            }
-            fos.write((String.valueOf(Settings.javitHatar)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.ketesMin)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.ketesMax)+"\r\n").getBytes());
-            fos.write((String.valueOf(Settings.tantargyakSzama)+"\r\n").getBytes());
-            for(int i=0;i<Settings.tantargyakSzama;i++){
-                fos.write((Settings.tantargyak[i].nev+"\r\n").getBytes());
-                fos.write((String.valueOf(Settings.tantargyak[i].jegyekSzama)+"\r\n").getBytes());
-                for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].getErtek()) + "\r\n").getBytes());
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()) + "\r\n").getBytes());
-                    if(Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()){
-                        fos.write((Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\r\n").getBytes());
-                    }
-                    fos.write((String.valueOf(Settings.tantargyak[i].jegyek[n].isFontos()) + "\r\n").getBytes());
-                    fos.write((Settings.tantargyak[i].jegyek[n].getDatum() + "\r\n").getBytes());
+        String tanPref ="";
+        for(int i=0;i<Settings.tantargyakSzama;i++){
+            tanPref+=Settings.tantargyak[i].nev+"\r\n";
+            tanPref+=Settings.tantargyak[i].jegyekSzama+"\r\n";
+            for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
+                tanPref+=Settings.tantargyak[i].jegyek[n].getErtek()+"\r\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()+"\r\n";
+                if(tantargyak[i].jegyek[n].isVanMegjegyzes()){
+                    tanPref+=Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\r\n";
                 }
+                tanPref+=Settings.tantargyak[i].jegyek[n].isFontos()+"\r\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].getDatum()+"\r\n";
             }
-
-            fos.close();
-
-        } catch (Exception t) {
-
-            t.printStackTrace();
         }
+        prefs.edit().putString("tan", tanPref).apply();
+        prefs.edit().commit();
+        BackupManager bm = new BackupManager(context);
+        bm.dataChanged();
         Intent intent = new Intent(context, GradesWidget.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
         int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, GradesWidget.class));

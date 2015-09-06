@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Created by Dominik on 1/6/2015.
  */
-public class menu1_fragment extends Fragment {
+public class fragment_main extends Fragment {
     static View rootView;
     static LayoutInflater inflaterr;
     static ListView list;
