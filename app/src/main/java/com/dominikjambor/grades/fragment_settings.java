@@ -62,6 +62,10 @@ public class fragment_settings extends Fragment {
         dialog_Ketes javDiag = new dialog_Ketes();
         javDiag.show(MainActivity.fmgr,"asd");
     }
+    static void ShowUpdateDialog(){
+        dialog_update udia = new dialog_update();
+        udia.show(MainActivity.fmgr,"asd");
+    }
     static void update()
     {
         settingList.clear();
@@ -73,10 +77,10 @@ public class fragment_settings extends Fragment {
         settingList.add("Kétes határok");
         settingValueList.add("x."+String.valueOf(35+(Settings.ketesMin*5))+" - x."+String.valueOf(35+(Settings.ketesMax*5)));
 
-        settingList.add("Jelszó");
+        settingList.add("Frissítés keresése");
         settingValueList.add("Kikapcsolva");
-        settingList.add("Jelzések");
-        settingValueList.add("Kikapcsolva");
+        //settingList.add("Jelzések");
+        //settingValueList.add("Kikapcsolva");
 
         settingListView.setAdapter(new MyListAdapter(rootView.getContext()));
         settingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +93,10 @@ public class fragment_settings extends Fragment {
                     case 1:
                         ShowKetesDialog();
                         break;
+                    case 2:
+                        ShowUpdateDialog();
+                        break;
+
                 }
             }
         });

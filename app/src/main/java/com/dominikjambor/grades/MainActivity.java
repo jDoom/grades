@@ -2,6 +2,7 @@ package com.dominikjambor.grades;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,8 @@ public class MainActivity extends ActionBarActivity
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private LinearLayout frame;
+    static int verc=0;
+    static String vern="0";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -44,6 +47,18 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         Settings.LoadSavedData(getApplicationContext());
+        try {
+            int app_ver = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
+            verc = app_ver;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            String app_vern = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+            vern = app_vern;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         int pos = getIntent().getIntExtra("pos", -1);
         if(pos >-1) {
             Intent intent = new Intent(this, TantargyNezetActivity.class);

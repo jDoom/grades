@@ -25,4 +25,5 @@ dependencies {
     compile files('systembartint-1.0.3.jar')
     compile 'com.melnykov:floatingactionbutton:1.2.0'
     compile 'com.android.support:cardview-v7:21.0.+'
+    compile project(":volley")
 }

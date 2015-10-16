@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -77,16 +78,16 @@ public class Settings {
 
         String tanPref ="";
         for(int i=0;i<Settings.tantargyakSzama;i++){
-            tanPref+=Settings.tantargyak[i].nev+"\r\n";
-            tanPref+=Settings.tantargyak[i].jegyekSzama+"\r\n";
+            tanPref+=Settings.tantargyak[i].nev+"\n";
+            tanPref+=Settings.tantargyak[i].jegyekSzama+"\n";
             for(int n=0;n<Settings.tantargyak[i].jegyekSzama;n++){
-                tanPref+=Settings.tantargyak[i].jegyek[n].getErtek()+"\r\n";
-                tanPref+=Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()+"\r\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].getErtek()+"\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].isVanMegjegyzes()+"\n";
                 if(tantargyak[i].jegyek[n].isVanMegjegyzes()){
-                    tanPref+=Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\r\n";
+                    tanPref+=Settings.tantargyak[i].jegyek[n].getMegjegyzes()+"\n";
                 }
-                tanPref+=Settings.tantargyak[i].jegyek[n].isFontos()+"\r\n";
-                tanPref+=Settings.tantargyak[i].jegyek[n].getDatum()+"\r\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].isFontos()+"\n";
+                tanPref+=Settings.tantargyak[i].jegyek[n].getDatum()+"\n";
             }
         }
         prefs.edit().putString("tan", tanPref).apply();

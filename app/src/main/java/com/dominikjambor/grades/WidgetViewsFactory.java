@@ -27,6 +27,7 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
     @Override
     public int getCount()
     {
+        Settings.updateTantargyList();
         return Settings.tantargyList.size();
     }
 
@@ -97,14 +98,12 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
     public void onCreate()
     {
         // TODO Auto-generated method stub
-        Settings.updateTantargyList();
     }
 
     @Override
     public void onDataSetChanged()
     {
         // TODO Auto-generated method stub
-        Settings.updateTantargyList();
     }
 
     @Override

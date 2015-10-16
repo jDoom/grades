@@ -38,9 +38,9 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                     Settings.tantargyak[fragment_tantargyak.szerkesztid].nev = nev;
                     Settings.tantargyList.set(fragment_tantargyak.szerkesztid,nev);
                     fragment_tantargyak.createList();
+                    Settings.SaveAll(getActivity().getApplicationContext());
                     dismiss();
                     fragment_tantargyak.fab.show();
-                    Settings.SaveAll(container.getContext());
                 }
             }
         });
