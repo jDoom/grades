@@ -36,12 +36,13 @@ public class Settings {
         //MEG
         //FONTOS
         //DATUM
+        tantargyList = new ArrayList<String>();
         SharedPreferences prefs = context.getSharedPreferences(
                 "com.dominikjambor.grades.data", Context.MODE_PRIVATE);
 
         Settings.javitHatar = prefs.getFloat("javithatar", 4.0f);
         Settings.ketesMin = prefs.getInt("ketesmin", 2);
-        Settings.ketesMin = prefs.getInt("ketesmax", 4);
+        Settings.ketesMax = prefs.getInt("ketesmax", 4);
         Settings.tantargyakSzama = prefs.getInt("tantargyakszama", 0);
         String tanPref = prefs.getString("tan", "");
         String[] tanPrefS = tanPref.split(System.getProperty("line.separator"));

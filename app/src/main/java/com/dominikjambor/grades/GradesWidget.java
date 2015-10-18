@@ -26,7 +26,7 @@ public class GradesWidget extends AppWidgetProvider {
         for (int i = 0; i < N; i++) {
             updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
         }
-
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -71,6 +71,7 @@ public class GradesWidget extends AppWidgetProvider {
 
 
         views.setRemoteAdapter(R.id.wListView, intent);
+        views.setTextViewText(R.id.widgetTitleText,"Tantárgyak");
 
         Intent startApp = new Intent(context,MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context,0,startApp,0);
@@ -94,7 +95,6 @@ public class GradesWidget extends AppWidgetProvider {
         // Instruct the widget manager to update the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.wListView);
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
     }
 }
 

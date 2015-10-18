@@ -14,5 +14,4 @@ public class WidgetService extends RemoteViewsService
     {
         return (new WidgetViewsFactory(this.getApplicationContext(), intent));
     }
-
 }

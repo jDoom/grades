@@ -15,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:background="#b3535353"
+        android:background="#b73b3b3b"
         android:autoText="false"
         android:textColor="#ffffff" />
     <ImageView
@@ -37,7 +37,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/widgetTitleText"
         android:layout_alignParentBottom="true"
-        android:background="#a0444444"
+        android:background="#b72f2f2f"
         android:id="@+id/wLin">
     <ListView
         android:layout_width="wrap_content"

@@ -48,13 +48,13 @@ public class MainActivity extends ActionBarActivity
         fragmentManager = getSupportFragmentManager();
         Settings.LoadSavedData(getApplicationContext());
         try {
-            int app_ver = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
+            int app_ver = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
             verc = app_ver;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            String app_vern = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+            String app_vern = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             vern = app_vern;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

@@ -34,7 +34,6 @@ import java.util.Locale;
 public class JegyHozzaadas extends ActionBarActivity {
     int tanid,jegyid;
     boolean szerk=false,tantargyAdd=false,tnezet=false;
-    static Context cx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,10 @@ public class JegyHozzaadas extends ActionBarActivity {
             getWindow().setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.transition_dash_to_subject));
         }
         setContentView(R.layout.activity_jegyhozzaadas);
-        cx = getApplicationContext();
+        if(getIntent().hasExtra("FROMWIDGET")){
+            Settings.LoadSavedData(this);
+            Settings.updateTantargyList();
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -369,14 +371,14 @@ public class JegyHozzaadas extends ActionBarActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    Toast.makeText(cx, "Jegy törölve.",
+                                    Toast.makeText(getApplicationContext(), "Jegy törölve.",
                                             Toast.LENGTH_SHORT).show();
                                     Settings.tantargyak[tanid].jegyekSzama--;
                                     for(int i=jegyid;i<Settings.tantargyak[tanid].jegyekSzama;i++)
                                     {
                                         Settings.tantargyak[tanid].jegyek[i]=Settings.tantargyak[tanid].jegyek[i+1];
                                     }
-                                    Settings.SaveAll(cx);
+                                    Settings.SaveAll(getApplicationContext());
                                     fragment_main.update();
                                     if(Settings.tantargyak[tanid].jegyekSzama==0)
                                         TantargyNezetActivity.dis.finish();
@@ -456,7 +458,8 @@ public class JegyHozzaadas extends ActionBarActivity {
         else if(tantargyAdd&&tnezet&&!getIntent().hasExtra("FROMWIDGET")){
             TantargyNezetActivity.update();
         }
-        fragment_main.update();
+        if(!getIntent().hasExtra("FROMWIDGET"))
+        { fragment_main.update(); }
         finish();
     }
     @Override

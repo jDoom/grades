@@ -60,7 +60,6 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
         remoteView.setTextViewText(R.id.wTantargyNevText, Settings.tantargyList.get(position).toString());
         remoteView.setTextViewText(R.id.wJegySzamText, String.valueOf(Settings.tantargyak[position].jegyekSzama));
         remoteView.setTextViewText(R.id.wAtlagText, String.valueOf(Settings.tantargyak[position].getAtlag(2)));
-
         Bundle extras = new Bundle();
         if (action == 1) {
             extras.putInt("TANTARGY", position);

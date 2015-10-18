@@ -24,6 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.w3c.dom.Text;
+
 import java.sql.ResultSet;
 
 /**
@@ -41,11 +43,13 @@ public class dialog_update extends DialogFragment {
         okButton.setText("OK");
 
         TextView versionText = (TextView) view.findViewById(R.id.dVersionText);
+        final TextView changeText = (TextView) view.findViewById(R.id.updateChangelogTextView);
         versionText.setText(MainActivity.vern);
         final ProgressBar pbar = (ProgressBar) view.findViewById(R.id.dUpdatePBar);
 
         final RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url ="http://gradesupdate.tk/grades/update.php?action=check";
+        String url2 ="http://gradesupdate.tk/grades/update.php?action=log&version=latest";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -65,6 +69,7 @@ public class dialog_update extends DialogFragment {
                             if(Integer.parseInt(response.trim())>MainActivity.verc){
                                 resultText.setText("Új frissítés áll rendelkezésre!");
                                 okButton.setText("Frissítés");
+                                Log.w("NEWVER",String.valueOf(MainActivity.verc));
                             }
                             else{
                                 resultText.setText("Ez a legfrissebb verzió.");
@@ -77,6 +82,18 @@ public class dialog_update extends DialogFragment {
             public void onErrorResponse(VolleyError error) {
                 resultText.setText("Hiba a csatlakozás során!");
                 pbar.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        StringRequest changelogRequest = new StringRequest(Request.Method.GET, url2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) throws PackageManager.NameNotFoundException {
+                        changeText.setText(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
             }
         });
@@ -96,6 +113,7 @@ public class dialog_update extends DialogFragment {
             }
         });
         queue.add(stringRequest);
+        queue.add(changelogRequest);
         return view;
     }
 }

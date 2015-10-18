@@ -36,11 +36,11 @@
         android:layout_height="wrap_content"
         android:text="OK"
         android:id="@+id/dUpdateOk"
-        android:layout_below="@+id/dUpdateResultText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/updateChangelogTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,6 +49,20 @@
         android:id="@+id/dUpdateResultText"
         android:layout_below="@+id/dUpdatePBar"
         android:layout_centerHorizontal="true"
-        android:text="Keresés..." />
+        android:text="Keresés..."
+        android:textColor="#ececec" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nem érhető el changelog"
+        android:id="@+id/updateChangelogTextView"
+        android:layout_below="@+id/dUpdateResultText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
