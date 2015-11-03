@@ -62,8 +62,8 @@ public class GradesWidget extends AppWidgetProvider {
             views = new RemoteViews(context.getPackageName(), R.layout.grades_widget_dark);
         }
 
-        Settings.LoadSavedData(context);
-        Settings.updateTantargyList();
+        //Settings.LoadSavedData(context);
+        //Settings.updateTantargyList();
         Intent intent = new Intent(context, WidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 appWidgetId);

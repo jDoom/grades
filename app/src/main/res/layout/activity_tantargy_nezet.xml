@@ -30,6 +30,16 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Átlag:"
+                android:id="@+id/textView17"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -44,18 +54,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Legutóbbi jegy: N/A"
-                android:id="@+id/tanViewLegutobbi"
+                android:text="Kiemelt jegyek száma: N/A"
+                android:id="@+id/tanViewFontos"
                 android:layout_marginLeft="5dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ebből a tantárgyból még nincs jegyed!"
-                android:id="@+id/tanViewLegutobbiDatum"
-                android:layout_marginLeft="5dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"

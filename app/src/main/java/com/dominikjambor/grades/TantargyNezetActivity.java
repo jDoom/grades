@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +32,7 @@ public class TantargyNezetActivity extends ActionBarActivity {
     static FragmentManager fmr;
     static TextView atlagTextView;
     static TextView jegySzamText;
-    static TextView legutobbiJegy;
-    static TextView legutobbiDatum;
+    static TextView fontosJegyek;
     static Activity dis;
 
     @Override
@@ -57,8 +55,7 @@ public class TantargyNezetActivity extends ActionBarActivity {
 
         atlagTextView = (TextView) findViewById(R.id.tanViewAtlag);
         jegySzamText = (TextView) findViewById(R.id.tanViewJegySzam);
-        legutobbiJegy = (TextView) findViewById(R.id.tanViewLegutobbi);
-        legutobbiDatum = (TextView) findViewById(R.id.tanViewLegutobbiDatum);
+        fontosJegyek = (TextView) findViewById(R.id.tanViewFontos);
         jegyListView = (ListView) findViewById(R.id.tanViewListView);
         inflaterr = getLayoutInflater();
         update();
@@ -76,7 +73,7 @@ public class TantargyNezetActivity extends ActionBarActivity {
             if (itemView == null) {
                 itemView = inflaterr.inflate(R.layout.itemlayout_tantargynezet_item, parent, false);
             }
-            TextView datumText = (TextView) itemView.findViewById(R.id.datumTextView);
+            TextView datumText = (TextView) itemView.findViewById(R.id.tNevTextView);
             datumText.setText(Settings.tantargyak[tid].jegyek[position].getDatum());
             TextView kommentText = (TextView) itemView.findViewById(R.id.kommentTextView);
             kommentText.setText(Settings.tantargyak[tid].jegyek[position].getMegjegyzes());
@@ -125,8 +122,13 @@ public class TantargyNezetActivity extends ActionBarActivity {
         if(Settings.tantargyak[tid].jegyekSzama>0) {
             atlagTextView.setText(String.valueOf(Settings.tantargyak[tid].getAtlag(2)));
             jegySzamText.setText("Jegyek száma: " + String.valueOf(Settings.tantargyak[tid].jegyekSzama));
-            legutobbiJegy.setText("Legutóbbi jegy: " + String.valueOf(Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getErtek()));
-            legutobbiDatum.setText("Legutóbbi dátum: " + Settings.tantargyak[tid].jegyek[Settings.tantargyak[tid].jegyekSzama - 1].getDatum());
+            int fj=0;
+            for(int i=0;i<Settings.tantargyak[tid].jegyekSzama;i++){
+                if(Settings.tantargyak[tid].jegyek[i].isFontos()){
+                    fj++;
+                }
+            }
+            fontosJegyek.setText("Kiemelt jegyek száma: " + String.valueOf(fj));
         }
     }
 
@@ -149,6 +151,22 @@ public class TantargyNezetActivity extends ActionBarActivity {
             intent.putExtra("TANTARGY", tid);
             intent.putExtra("TNEZET", true);
             this.startActivity(intent);
+        }
+        if(item.getItemId()==R.id.jegyszimulator){
+            dialog_jegyszimulator jszdiag = new dialog_jegyszimulator();
+            Bundle args = new Bundle();
+            args.putIntArray("jegyek",Settings.tantargyak[tid].getIntJegyek());
+            args.putInt("jegyszam", Settings.tantargyak[tid].jegyekSzama);
+            jszdiag.setArguments(args);
+            jszdiag.show(getFragmentManager(), "asd");
+        }
+        if(item.getItemId()==R.id.atlagszamito){
+            dialog_atlagszamito akDiag = new dialog_atlagszamito();
+            Bundle args = new Bundle();
+            args.putIntArray("jegyek",Settings.tantargyak[tid].getIntJegyek());
+            args.putInt("jegyszam",Settings.tantargyak[tid].jegyekSzama);
+            akDiag.setArguments(args);
+            akDiag.show(getFragmentManager(), "asd");
         }
         return super.onOptionsItemSelected(item);
     }

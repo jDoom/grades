@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,10 +19,12 @@ import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    static FragmentManager sfmgr;
     static android.app.FragmentManager fmgr;
     static Context cx;
     static FragmentManager fragmentManager;
@@ -31,7 +34,9 @@ public class MainActivity extends ActionBarActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private LinearLayout frame;
     static int verc=0;
+    int currentScreen =0;
     static String vern="0";
+    boolean sureExit=false;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -92,6 +97,7 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         fmgr = getFragmentManager();
+        sfmgr = getSupportFragmentManager();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawerlist);
@@ -116,15 +122,19 @@ public class MainActivity extends ActionBarActivity
         switch(position){
             case 0:
                 objFragment = new fragment_main();
+                currentScreen=0;
                 break;
             case 1:
                 objFragment = new fragment_tantargyak();
+                currentScreen=1;
                 break;
             case 2:
                 objFragment = new fragment_settings();
+                currentScreen=2;
                 break;
             case 3:
                 objFragment = new fragment_easteregg();
+                currentScreen=3;
                 break;
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -161,6 +171,26 @@ public class MainActivity extends ActionBarActivity
             menu.clear();
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(currentScreen!=0){
+            onNavigationDrawerItemSelected(0);
+        }
+        else if(!sureExit){
+            sureExit=true;
+            Toast.makeText(this, "Nyomd meg mégegyszer a kilépéshez.", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sureExit = false;
+                }
+            }, 2000);
+        }
+        else{
+            finish();
+        }
     }
 
     @Override

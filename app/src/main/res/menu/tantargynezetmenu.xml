@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-        <item android:id="@+id/menuhozzaad" android:title="Hozzáadás" android:icon="@drawable/ic_action_new"
-            android:orderInCategory="100" app:showAsAction="ifRoom" />
+    <item android:id="@+id/menucalc" android:title="Számolás" android:icon="@drawable/ic_more_vert_white_48dp"
+        android:orderInCategory="3" app:showAsAction="ifRoom" >
+        <menu>
+            <item android:id="@+id/atlagszamito" android:title="Átlagszámító"></item>
+            <item android:id="@+id/jegyszimulator" android:title="Jegyszimulátor"></item>
+        </menu>
+    </item>
+    <item android:id="@+id/menuhozzaad" android:title="Hozzáadás" android:icon="@drawable/ic_action_new"
+            android:orderInCategory="2" app:showAsAction="ifRoom" />
 </menu>

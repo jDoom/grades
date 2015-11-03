@@ -460,6 +460,7 @@ public class JegyHozzaadas extends ActionBarActivity {
         }
         if(!getIntent().hasExtra("FROMWIDGET"))
         { fragment_main.update(); }
+
         finish();
     }
     @Override

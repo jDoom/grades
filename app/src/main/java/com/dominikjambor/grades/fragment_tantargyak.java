@@ -3,18 +3,22 @@ package com.dominikjambor.grades;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.terlici.dragndroplist.DragNDropCursorAdapter;
+import com.terlici.dragndroplist.DragNDropListView;
+import com.terlici.dragndroplist.DragNDropSimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,7 @@ import java.util.List;
 public class fragment_tantargyak extends Fragment {
     static View rootView;
     static LayoutInflater inflaterr;
-    static ListView list;
+    static DragNDropListView list;
     static int szerkesztid=0;
     static FloatingActionButton fab;
     private static List<String> tantargyList = new ArrayList<>();
@@ -34,7 +38,7 @@ public class fragment_tantargyak extends Fragment {
         for(int i=0;i<Settings.tantargyakSzama;i++){
             tantargyList.add(Settings.tantargyak[i].nev);
         }
-        populateListView();
+        populateListView(rootView.getContext());
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,13 +56,57 @@ public class fragment_tantargyak extends Fragment {
         return rootView;
 
     }
-    private static void populateListView(){
-        ArrayAdapter<String> adapter = new MyListAdapter(rootView.getContext());
-        list =(ListView) rootView.findViewById(R.id.listView2);
-        list.setAdapter(adapter);
+    private static void populateListView(Context cx){
+        //ArrayAdapter<String> adapter = new MyListAdapter(rootView.getContext());
+        list =(DragNDropListView ) rootView.findViewById(R.id.listView2);
+
+        String[] columns = new String[] { "_id", "item"};
+
+        MatrixCursor matrixCursor= new MatrixCursor(columns);
+        //startManagingCursor(matrixCursor);
+
+
+        for(int i=0;i<tantargyList.size();i++) {
+            matrixCursor.addRow(new Object[]{1, tantargyList.get(i)});
+        }
+
+        DragNDropCursorAdapter adapter = new DragNDropCursorAdapter(cx,
+                R.layout.itemlayout_tantargy,
+                matrixCursor,
+                new String[]{"item"},
+                new int[]{R.id.tNevTextView},
+                R.id.handler){
+            @Override
+            public void onItemDrop(DragNDropListView parent, View view, int startPosition, int endPosition, long id) {
+                super.onItemDrop(parent, view, startPosition, endPosition, id);
+                if(startPosition<endPosition){
+                    Tantargy t = Settings.tantargyak[startPosition];
+                    for(int i=startPosition;i<endPosition;i++){
+                        Settings.tantargyak[i] = Settings.tantargyak[i+1];
+                    }
+                    Settings.tantargyak[endPosition] = t;
+                }
+                else if(startPosition>endPosition){
+                    Tantargy t = Settings.tantargyak[startPosition];
+                    for(int i=startPosition;i>endPosition;i--){
+                        Settings.tantargyak[i] = Settings.tantargyak[i-1];
+                    }
+                    Settings.tantargyak[endPosition] = t;
+                }
+                Settings.SaveAll(view.getContext());
+            }
+        };
+        list.setDragNDropAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                szerkesztid=i;
+                ShowTantargySzerkeszto();
+            }
+        });
     }
 
-    private static class MyListAdapter extends ArrayAdapter<String>{
+    /*private static class MyListAdapter extends ArrayAdapter<String>{
 
         public MyListAdapter(Context context) {
             super(context,R.layout.itemlayout_main,tantargyList);
@@ -70,8 +118,8 @@ public class fragment_tantargyak extends Fragment {
             if (itemView == null) {
                 itemView = inflaterr.inflate(R.layout.itemlayout_tantargy, parent, false);
             }
-            TextView tantargyTextView = (TextView) itemView.findViewById(R.id.datumTextView);
-            ImageView deleteImage = (ImageView) itemView.findViewById(R.id.deleteImage);
+            TextView tantargyTextView = (TextView) itemView.findViewById(R.id.tNevTextView);
+            //ImageView deleteImage = (ImageView) itemView.findViewById(R.id.deleteImage);
             deleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -110,7 +158,7 @@ public class fragment_tantargyak extends Fragment {
             tantargyTextView.setText(Settings.tantargyak[position].nev);
             return itemView;
         }
-    }
+    }*/
     static void ShowTantargySzerkeszto(){
         dialog_TantargySzerkeszto javDiag = new dialog_TantargySzerkeszto();
         javDiag.show(MainActivity.fmgr,"asd");

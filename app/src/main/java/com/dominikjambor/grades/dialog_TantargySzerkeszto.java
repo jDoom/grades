@@ -25,7 +25,7 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
         //getDialog().getWindow().setBackgroundDrawableResource(R.drawable.diag_box);
         final EditText tantargyNev = (EditText) view.findViewById(R.id.tantargyEditText);
         tantargyNev.setText(Settings.tantargyak[fragment_tantargyak.szerkesztid].nev);
-        Button hozzaad = (Button) view.findViewById(R.id.tantargyHozzaadButton);
+        Button hozzaad = (Button) view.findViewById(R.id.tantargySzerkesztButton);
         hozzaad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                                 Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+" jegyei törölve.",
                                         Toast.LENGTH_SHORT).show();
                                 Settings.tantargyak[fragment_tantargyak.szerkesztid].jegyekSzama=0;
-                                Settings.SaveAll(container.getContext());
+                                Settings.SaveAll(view.getContext());
                                 break;
                         }
                     }
@@ -64,6 +64,36 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage("'"+Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+"' jegyeinek törlése?").setPositiveButton("Igen", dialogClickListener)
+                        .setNegativeButton("Nem", dialogClickListener).show();
+            }
+        });
+        Button ttorol = (Button) view.findViewById(R.id.tDelButton);
+        ttorol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+" törölve.",
+                                        Toast.LENGTH_SHORT).show();
+                                for(int i=fragment_tantargyak.szerkesztid;i<Settings.tantargyakSzama-1;i++)
+                                {
+                                    Settings.tantargyak[i]=Settings.tantargyak[i+1];
+                                }
+                                Settings.tantargyakSzama--;
+                                Settings.tantargyList.remove(fragment_tantargyak.szerkesztid);
+                                fragment_tantargyak.createList();
+                                Settings.SaveAll(view.getContext());
+                                dismiss();
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("'"+Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+"' törlése?").setPositiveButton("Igen", dialogClickListener)
                         .setNegativeButton("Nem", dialogClickListener).show();
             }
         });

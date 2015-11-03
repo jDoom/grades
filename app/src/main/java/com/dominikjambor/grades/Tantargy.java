@@ -33,4 +33,11 @@ public class Tantargy {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+    public int[] getIntJegyek(){
+        int[] j = new int[jegyekSzama];
+        for(int i=0;i<jegyekSzama;i++){
+            j[i] = jegyek[i].getErtek();
+        }
+        return j;
+    }
 }

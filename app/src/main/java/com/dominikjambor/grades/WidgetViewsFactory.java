@@ -21,6 +21,7 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
         this.context = context;
         appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
+        Settings.LoadSavedData(context);
     }
 
 
@@ -46,7 +47,7 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public RemoteViews getViewAt(int position) {
-        Log.d("WidgetCreatingView", "WidgetCreatingView");
+        //Log.d("WidgetCreatingView", "WidgetCreatingView");
         int theme = Integer.parseInt(GradesWidgetConfigureActivity.loadTitlePref(context, appWidgetId, "theme"));
         int action = Integer.parseInt(GradesWidgetConfigureActivity.loadTitlePref(context, appWidgetId, "action"));
         RemoteViews remoteView;
@@ -73,7 +74,7 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
         fillInIntent.putExtras(extras);
         // Make it possible to distinguish the individual on-click
         // action of a given item
-        Log.w("UPDATING ITEM",String.valueOf(position));
+        //Log.w("UPDATING ITEM",String.valueOf(position));
         remoteView.setOnClickFillInIntent(R.id.rowl, fillInIntent);
 
         return remoteView;

@@ -12,5 +12,14 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="jegyadas">JEGY HOZZÁADÁSA - Az oldalmenüben válaszd ki az összefoglalás menüt, majd a listából a megfelelő tantárgyat. Itt a jobb felső sarokban megjelenő "plusz" jelet kiválasztva lehet hozzáadni. Az összefoglalás listában a megfelelő tantárgyra irányított hosszú lenyomás is a hozzáadás menübe visz.</string>
+    <string name="szamolok">JEGYSZIMULÁTOR - A tantárgy menü jobb felső sarkában a legördülő listában van, megmutatja, hogy hogyan változik az átlag különböző jegyek hozzáadásakor, de ezeket nem adja hozzá a tantárgyhoz.
+    \r\nÁTLAGSZÁMÍTÓ - Szintén a tantárgy menü jobb felső sarkából legördülő listában van, megmutatja, hogy milyen jegyből mennyi kell a kívánt átlag eléréséhez.</string>
+    <string name="widgethelp">WIDGET HASZNÁLATA - A kezdőképernyőre kitehető widget sötét és világos lehet, illetve koppintáskor vihet a tantárgy nézetbe vagy a tantárgy hozzáadása menübe.</string>
+    <string name="calchelp">Összesített átlag - Az egyes tantárgyak egészre kerekített átlagainak az átlaga.\r\n
+KÉTES tantárgy - Akkor minősül egy tantárgy kétesnek, ha az átlag törtrésze a beállításokban megadott határokon belül van. Ezt egy sárga kérdőjel jelzi.\r\n
+JAVÍTANDÓ tantárgy - Akkor minősül egy tantárgy javítandónak, ha az átlag alacsonyabb mint a beállításokban megadott érték. Ezt egy piros felkiáltójel jelzi.
+    </string>
+    <string name="help1">TANTÁRGY HOZZÁADÁSA - Az oldalmenüben válaszd ki a tantárgyak menüt, majd a jobb alsó sarokban megjelenő "plusz" jelre koppintva megjelenik a hozzáadó képernyő. A tantárgyak sorrendje itt változtatható.</string>
 
 </resources>

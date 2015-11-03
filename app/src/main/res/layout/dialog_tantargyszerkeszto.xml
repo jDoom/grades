@@ -29,8 +29,15 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Tantárgy törlése"
+        android:id="@+id/tDelButton"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Kész"
-        android:id="@+id/tantargyHozzaadButton"
+        android:id="@+id/tantargySzerkesztButton"
         android:textColor="#FFFFFF"
         android:paddingTop="0dp" />
 </LinearLayout>

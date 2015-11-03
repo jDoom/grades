@@ -48,8 +48,8 @@ public class dialog_update extends DialogFragment {
         final ProgressBar pbar = (ProgressBar) view.findViewById(R.id.dUpdatePBar);
 
         final RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url ="http://gradesupdate.tk/grades/update.php?action=check";
-        String url2 ="http://gradesupdate.tk/grades/update.php?action=log&version=latest";
+        String url ="http://cleantech.hu/grades/update.php?action=check";
+        String url2 ="http://cleantech.hu/grades/update.php?action=log&version=latest";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -105,7 +105,7 @@ public class dialog_update extends DialogFragment {
                     dismiss();
                 }
                 else if(okButton.getText()=="Frissítés"){
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://gradesupdate.tk/grades/update.php?action=get&version=latest"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://getgrades.ml/update.php?action=get&version=latest"));
                     startActivity(browserIntent);
                     dismiss();
                     getActivity().finish();

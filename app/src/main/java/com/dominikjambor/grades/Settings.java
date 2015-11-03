@@ -66,7 +66,7 @@ public class Settings {
                 p++;
             }
         }
-
+        updateTantargyList();
     }
     static void SaveAll(Context context){
 

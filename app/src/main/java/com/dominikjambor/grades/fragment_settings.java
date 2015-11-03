@@ -66,6 +66,14 @@ public class fragment_settings extends Fragment {
         dialog_update udia = new dialog_update();
         udia.show(MainActivity.fmgr,"asd");
     }
+    static void ShowHelpDialog(){
+        dialog_help hdia = new dialog_help();
+        hdia.show(MainActivity.fmgr,"asd");
+    }
+    static void ShowInfoDialog(){
+        dialog_info idia = new dialog_info();
+        idia.show(MainActivity.fmgr,"asd");
+    }
     static void update()
     {
         settingList.clear();
@@ -78,7 +86,13 @@ public class fragment_settings extends Fragment {
         settingValueList.add("x."+String.valueOf(35+(Settings.ketesMin*5))+" - x."+String.valueOf(35+(Settings.ketesMax*5)));
 
         settingList.add("Frissítés keresése");
-        settingValueList.add("Kikapcsolva");
+        settingValueList.add("Ellenőrzés");
+
+        settingList.add("Segítség");
+        settingValueList.add("Használati utasítás");
+
+        settingList.add("Infó");
+        settingValueList.add("Készítők és Liszenszek");
         //settingList.add("Jelzések");
         //settingValueList.add("Kikapcsolva");
 
@@ -95,6 +109,12 @@ public class fragment_settings extends Fragment {
                         break;
                     case 2:
                         ShowUpdateDialog();
+                        break;
+                    case 3:
+                        ShowHelpDialog();
+                        break;
+                    case 4:
+                        ShowInfoDialog();
                         break;
 
                 }

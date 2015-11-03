@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Dominik on 1/6/2015.
@@ -119,7 +110,7 @@ public class fragment_main extends Fragment {
                 img.setVisibility(View.VISIBLE);
                 img.setImageResource(R.drawable.sure);
             }
-            if(Settings.tantargyak[position].getAtlag(2)<=Settings.javitHatar)
+            if(Settings.tantargyak[position].getAtlag(2)<=Settings.javitHatar&&Settings.tantargyak[position].getAtlag(2)>0)
             {
                 img.setVisibility(View.VISIBLE);
                 img.setImageResource(R.drawable.warning );
@@ -150,7 +141,7 @@ public class fragment_main extends Fragment {
         else  osszAtlagText.setText("N/A");
         int javsz=0,ket=0;
         for(int i=0;i<Settings.tantargyakSzama;i++){
-            if(Settings.tantargyak[i].getAtlag(2)<=Settings.javitHatar)
+            if(Settings.tantargyak[i].getAtlag(2)<=Settings.javitHatar&&Settings.tantargyak[i].getAtlag(2)>0)
                 javsz++;
             if((float)Settings.tantargyak[i].getAtlag(2)%1 >= (float)(0.35f+Settings.ketesMin*0.05)%1
                     &&

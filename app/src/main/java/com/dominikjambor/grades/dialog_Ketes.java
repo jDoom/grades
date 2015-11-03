@@ -22,16 +22,17 @@ public class dialog_Ketes extends DialogFragment {
         final NumberPicker low = (NumberPicker) view.findViewById(R.id.lowEndNumberPicker);
         final NumberPicker high = (NumberPicker) view.findViewById(R.id.highEndNumberPicker);
         low.setMinValue(0);
-        low.setMaxValue(6);
+        low.setMaxValue(3);
         low.setValue(Settings.ketesMin);
         low.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-        high.setMinValue(0);
+        high.setMinValue(3);
         high.setMaxValue(6);
         high.setValue(Settings.ketesMax);
         high.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-        String[] t = new String[]{"x.35","x.40","x.45","x.50","x.55","x.60","x.65"};
-        low.setDisplayedValues(t);
-        high.setDisplayedValues(t);
+        String[] t1 = new String[]{"x.35","x.40","x.45","x.50"};
+        String[] t2 = new String[]{"x.50","x.55","x.60","x.65"};
+        low.setDisplayedValues(t1);
+        high.setDisplayedValues(t2);
 
         Button ok = (Button) view.findViewById(R.id.ketesOk);
         ok.setOnClickListener(new View.OnClickListener() {
