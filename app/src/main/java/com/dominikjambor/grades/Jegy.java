@@ -9,6 +9,16 @@ public class Jegy {
     private boolean vanMegjegyzes,fontos;
     private String megjegyzes;
 
+    public int getFelev() {
+        return felev;
+    }
+
+    public void setFelev(int felev) {
+        this.felev = felev;
+    }
+
+    private int felev;
+
     public int getErtek() {
         return ertek;
     }

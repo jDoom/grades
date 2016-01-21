@@ -1,27 +1,25 @@
 package com.dominikjambor.grades;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.terlici.dragndroplist.DragNDropCursorAdapter;
 import com.terlici.dragndroplist.DragNDropListView;
-import com.terlici.dragndroplist.DragNDropSimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tourguide.tourguide.Overlay;
+import tourguide.tourguide.Pointer;
+import tourguide.tourguide.ToolTip;
 
 /**
  * Created by Dominik on 1/6/2015.
@@ -30,43 +28,62 @@ public class fragment_tantargyak extends Fragment {
     static View rootView;
     static LayoutInflater inflaterr;
     static DragNDropListView list;
-    static int szerkesztid=0;
+    static int szerkesztid = 0;
     static FloatingActionButton fab;
     private static List<String> tantargyList = new ArrayList<>();
-    static void createList(){
+
+    static void createList() {
         tantargyList.clear();
-        for(int i=0;i<Settings.tantargyakSzama;i++){
+        for (int i = 0; i < Settings.tantargyakSzama; i++) {
             tantargyList.add(Settings.tantargyak[i].nev);
         }
         populateListView(rootView.getContext());
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.layout_menu2,container , false);
+        rootView = inflater.inflate(R.layout.layout_menu2, container, false);
         inflaterr = inflater;
+        list = (DragNDropListView) rootView.findViewById(R.id.listView2);
         createList();
-        fab =(FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.attachToListView(list);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!Settings.tantargyfragment_tutorial) {
+                    MainActivity.mTourGuideHandler.cleanUp();
+                    Settings.tantargyfragment_tutorial = true;
+                    Settings.SaveAll(getActivity().getApplicationContext());
+                }
                 MainActivity.ShowTantargyHozzaado();
             }
         });
+        if (!Settings.tantargyfragment_tutorial) {
+            MainActivity.mTourGuideHandler.setPointer(new Pointer())
+                    .setToolTip(new ToolTip()
+                                    .setTitle("Itt is egy tantárgy!")
+                                    .setDescription("Itt tudod a tantárgyakat szerkeszteni és újat hozzáadni.\nA sorrendjüket a jobb oldaluk megfogásával tudod változtatni.\nNe felejtsd el beállítani az alapértelmezett félévet!\nKezdj is hozzá!")
+                                    .setGravity(Gravity.TOP | Gravity.LEFT)
+                                    .setEnterAnimation(MainActivity.fadeIn)
+                    )
+                    .setOverlay(new Overlay().disableClick(true));
+            MainActivity.mTourGuideHandler.playOn(fab);
+        }
         return rootView;
 
     }
-    private static void populateListView(Context cx){
+
+    private static void populateListView(Context cx) {
         //ArrayAdapter<String> adapter = new MyListAdapter(rootView.getContext());
-        list =(DragNDropListView ) rootView.findViewById(R.id.listView2);
 
-        String[] columns = new String[] { "_id", "item"};
+        String[] columns = new String[]{"_id", "item"};
 
-        MatrixCursor matrixCursor= new MatrixCursor(columns);
+        MatrixCursor matrixCursor = new MatrixCursor(columns);
         //startManagingCursor(matrixCursor);
 
 
-        for(int i=0;i<tantargyList.size();i++) {
+        for (int i = 0; i < tantargyList.size(); i++) {
             matrixCursor.addRow(new Object[]{1, tantargyList.get(i)});
         }
 
@@ -75,21 +92,20 @@ public class fragment_tantargyak extends Fragment {
                 matrixCursor,
                 new String[]{"item"},
                 new int[]{R.id.tNevTextView},
-                R.id.handler){
+                R.id.handler) {
             @Override
             public void onItemDrop(DragNDropListView parent, View view, int startPosition, int endPosition, long id) {
                 super.onItemDrop(parent, view, startPosition, endPosition, id);
-                if(startPosition<endPosition){
+                if (startPosition < endPosition) {
                     Tantargy t = Settings.tantargyak[startPosition];
-                    for(int i=startPosition;i<endPosition;i++){
-                        Settings.tantargyak[i] = Settings.tantargyak[i+1];
+                    for (int i = startPosition; i < endPosition; i++) {
+                        Settings.tantargyak[i] = Settings.tantargyak[i + 1];
                     }
                     Settings.tantargyak[endPosition] = t;
-                }
-                else if(startPosition>endPosition){
+                } else if (startPosition > endPosition) {
                     Tantargy t = Settings.tantargyak[startPosition];
-                    for(int i=startPosition;i>endPosition;i--){
-                        Settings.tantargyak[i] = Settings.tantargyak[i-1];
+                    for (int i = startPosition; i > endPosition; i--) {
+                        Settings.tantargyak[i] = Settings.tantargyak[i - 1];
                     }
                     Settings.tantargyak[endPosition] = t;
                 }
@@ -100,7 +116,7 @@ public class fragment_tantargyak extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                szerkesztid=i;
+                szerkesztid = i;
                 ShowTantargySzerkeszto();
             }
         });
@@ -159,8 +175,8 @@ public class fragment_tantargyak extends Fragment {
             return itemView;
         }
     }*/
-    static void ShowTantargySzerkeszto(){
+    static void ShowTantargySzerkeszto() {
         dialog_TantargySzerkeszto javDiag = new dialog_TantargySzerkeszto();
-        javDiag.show(MainActivity.fmgr,"asd");
+        javDiag.show(MainActivity.fmgr, "asd");
     }
 }

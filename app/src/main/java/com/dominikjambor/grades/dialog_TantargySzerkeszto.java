@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.Toast;
  * Created by Dominik on 1/31/2015.
  */
 public class dialog_TantargySzerkeszto extends DialogFragment {
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_tantargyszerkeszto, null);
@@ -30,13 +28,12 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String nev = tantargyNev.getText().toString();
-                if(nev.isEmpty()){
+                if (nev.isEmpty()) {
                     Toast.makeText(view.getContext(), "Adj nevet a tantárgynak!",
                             Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Settings.tantargyak[fragment_tantargyak.szerkesztid].nev = nev;
-                    Settings.tantargyList.set(fragment_tantargyak.szerkesztid,nev);
+                    Settings.tantargyList.set(fragment_tantargyak.szerkesztid, nev);
                     fragment_tantargyak.createList();
                     Settings.SaveAll(getActivity().getApplicationContext());
                     dismiss();
@@ -51,11 +48,11 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+" jegyei törölve.",
+                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev + " jegyei törölve.",
                                         Toast.LENGTH_SHORT).show();
-                                Settings.tantargyak[fragment_tantargyak.szerkesztid].jegyekSzama=0;
+                                Settings.tantargyak[fragment_tantargyak.szerkesztid].jegyekSzama = 0;
                                 Settings.SaveAll(view.getContext());
                                 break;
                         }
@@ -63,7 +60,7 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("'"+Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+"' jegyeinek törlése?").setPositiveButton("Igen", dialogClickListener)
+                builder.setMessage("'" + Settings.tantargyak[fragment_tantargyak.szerkesztid].nev + "' jegyeinek törlése?").setPositiveButton("Igen", dialogClickListener)
                         .setNegativeButton("Nem", dialogClickListener).show();
             }
         });
@@ -74,13 +71,12 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+" törölve.",
+                                Toast.makeText(view.getContext(), Settings.tantargyak[fragment_tantargyak.szerkesztid].nev + " törölve.",
                                         Toast.LENGTH_SHORT).show();
-                                for(int i=fragment_tantargyak.szerkesztid;i<Settings.tantargyakSzama-1;i++)
-                                {
-                                    Settings.tantargyak[i]=Settings.tantargyak[i+1];
+                                for (int i = fragment_tantargyak.szerkesztid; i < Settings.tantargyakSzama - 1; i++) {
+                                    Settings.tantargyak[i] = Settings.tantargyak[i + 1];
                                 }
                                 Settings.tantargyakSzama--;
                                 Settings.tantargyList.remove(fragment_tantargyak.szerkesztid);
@@ -93,8 +89,22 @@ public class dialog_TantargySzerkeszto extends DialogFragment {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("'"+Settings.tantargyak[fragment_tantargyak.szerkesztid].nev+"' törlése?").setPositiveButton("Igen", dialogClickListener)
+                builder.setMessage("'" + Settings.tantargyak[fragment_tantargyak.szerkesztid].nev + "' törlése?").setPositiveButton("Igen", dialogClickListener)
                         .setNegativeButton("Nem", dialogClickListener).show();
+            }
+        });
+        final Button felevButton = (Button) view.findViewById(R.id.tFelev);
+        felevButton.setText("Alapértelmezett félév: " + String.valueOf(Settings.tantargyak[fragment_tantargyak.szerkesztid].felev + 1));
+        felevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Settings.tantargyak[fragment_tantargyak.szerkesztid].felev == 1) {
+                    Settings.tantargyak[fragment_tantargyak.szerkesztid].felev = 0;
+                }
+                else{
+                    Settings.tantargyak[fragment_tantargyak.szerkesztid].felev = 1;
+                }
+                felevButton.setText("Alapértelmezett félév: " + String.valueOf(Settings.tantargyak[fragment_tantargyak.szerkesztid].felev + 1));
             }
         });
         return view;

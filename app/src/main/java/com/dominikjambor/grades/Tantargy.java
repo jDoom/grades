@@ -8,24 +8,34 @@ import java.math.RoundingMode;
  */
 public class Tantargy {
     int jegyekSzama;
+    int felev;
     Jegy jegyek[];
     String nev;
-    public Tantargy(String n, int j){
+
+    public Tantargy(String n, int j) {
         jegyekSzama = j;
         jegyek = new Jegy[100];
         nev = n;
     }
 
-    double getAtlag(int tizedesJegyek){
-        if(jegyekSzama == 0){
+    double getAtlag(int tizedesJegyek, int felev) {
+        if (jegyekSzama == 0) {
             return 0;
         }
-        double o=0;
-        for(int i=0;i<jegyekSzama;i++){
-            o+=jegyek[i].getErtek();
+        int n = 0;
+        double o = 0;
+        for (int i = 0; i < jegyekSzama; i++) {
+            if (felev == 2 || jegyek[i].getFelev() == felev) {
+                o += jegyek[i].getErtek();
+                n++;
+            }
         }
-        return round(o/jegyekSzama,tizedesJegyek);
+        if (n == 0) {
+            return 0;
+        }
+        return round(o / n, tizedesJegyek);
     }
+
     static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -33,9 +43,10 @@ public class Tantargy {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    public int[] getIntJegyek(){
+
+    public int[] getIntJegyek() {
         int[] j = new int[jegyekSzama];
-        for(int i=0;i<jegyekSzama;i++){
+        for (int i = 0; i < jegyekSzama; i++) {
             j[i] = jegyek[i].getErtek();
         }
         return j;

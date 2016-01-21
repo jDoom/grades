@@ -23,6 +23,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Félév: 1"
+        android:id="@+id/tFelev"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Jegyek törlése"
         android:id="@+id/jegytorol" />
 

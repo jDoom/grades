@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name=".TantargyNezetActivity"
-            android:label="@string/title_activity_tantargy_nezet" >
+            android:label="@string/title_activity_tantargy_nezet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dominikjambor.grades.MainActivity" />

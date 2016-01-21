@@ -1,17 +1,15 @@
 package com.dominikjambor.grades;
 
 import android.app.DialogFragment;
-import android.content.Loader;
 import android.content.SharedPreferences;
-import android.os.Environment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.StreamCorruptedException;
 import java.util.Map;
 
 /**

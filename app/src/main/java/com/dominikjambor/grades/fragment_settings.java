@@ -2,7 +2,6 @@ package com.dominikjambor.grades;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ public class fragment_settings extends Fragment {
     static List settingValueList = new ArrayList<String>();
     static LayoutInflater inflaterr;
     static ListView settingListView;
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.layout_menu3,container , false);
@@ -45,12 +43,12 @@ public class fragment_settings extends Fragment {
             View itemView = convertView;
             if (itemView == null) {
                 itemView = inflaterr.inflate(R.layout.iteamlayout_settings, parent, false);
-            }
-            TextView settingName = (TextView) itemView.findViewById(R.id.settingName);
-            settingName.setText((String) settingList.get(position));
+                TextView settingName = (TextView) itemView.findViewById(R.id.settingName);
+                settingName.setText((String) settingList.get(position));
 
-            TextView settingValue = (TextView) itemView.findViewById(R.id.settingValue);
-            settingValue.setText((String) settingValueList.get(position));
+                TextView settingValue = (TextView) itemView.findViewById(R.id.settingValue);
+                settingValue.setText((String) settingValueList.get(position));
+            }
             return itemView;
         }
     }
@@ -74,6 +72,10 @@ public class fragment_settings extends Fragment {
         dialog_info idia = new dialog_info();
         idia.show(MainActivity.fmgr,"asd");
     }
+    static void ShowFelevDialog(){
+        dialog_felev idia = new dialog_felev();
+        idia.show(MainActivity.fmgr,"asd");
+    }
     static void update()
     {
         settingList.clear();
@@ -91,10 +93,12 @@ public class fragment_settings extends Fragment {
         settingList.add("Segítség");
         settingValueList.add("Használati utasítás");
 
+        settingList.add("Félév");
+        settingValueList.add("Félév kollektív beállítása");
+
         settingList.add("Infó");
         settingValueList.add("Készítők és Liszenszek");
-        //settingList.add("Jelzések");
-        //settingValueList.add("Kikapcsolva");
+
 
         settingListView.setAdapter(new MyListAdapter(rootView.getContext()));
         settingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,6 +118,9 @@ public class fragment_settings extends Fragment {
                         ShowHelpDialog();
                         break;
                     case 4:
+                        ShowFelevDialog();
+                        break;
+                    case 5:
                         ShowInfoDialog();
                         break;
 

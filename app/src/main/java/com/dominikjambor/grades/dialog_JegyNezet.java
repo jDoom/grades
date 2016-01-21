@@ -13,26 +13,22 @@ import android.widget.TextView;
 /**
  * Created by Dominik on 1/31/2015.
  */
-public class dialog_JegyNezet extends DialogFragment{
+public class dialog_JegyNezet extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_jegyinfo, null);
         getDialog().setTitle("Jegy információk");
-        TextView tanText = (TextView) view.findViewById(R.id.jegyViewTantargyText);
-        tanText.setText("Tantárgy: "+Settings.tantargyak[TantargyNezetActivity.tantargyid].nev);
         TextView datumText = (TextView) view.findViewById(R.id.jegyViewDatumText);
-        datumText.setText("Dátum: "+Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].getDatum());
+        datumText.setText("Dátum: " + Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].getDatum());
         TextView fontosText = (TextView) view.findViewById(R.id.jegyViewFontosText);
-        if(Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].isFontos())
-        {
+        TextView felevText = (TextView) view.findViewById(R.id.jegyViewFelevText);
+        felevText.setText("Félév: " + String.valueOf(Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].getFelev()+1));
+        if (Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].isFontos()) {
             fontosText.setText("Fontos: Igen");
-        }
-        else
-        {
+        } else {
             fontosText.setText("Fontos: Nem");
         }
-        if(Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].isVanMegjegyzes())
-        {
+        if (Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].isVanMegjegyzes()) {
             TextView megjegyText = (TextView) view.findViewById(R.id.jegyViewKommentText);
             megjegyText.setText(Settings.tantargyak[TantargyNezetActivity.tantargyid].jegyek[TantargyNezetActivity.jegyid].getMegjegyzes());
         }

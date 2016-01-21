@@ -23,9 +23,9 @@
         fab:fab_colorNormal="#338fff"
         fab:fab_colorPressed="#327dd9"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Összesített átlag: "
-            android:id="@+id/textView2"
+            android:id="@+id/mainOszAtText"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -53,7 +53,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Javításra szorul: "
             android:id="@+id/textView5"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/mainOszAtText"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textColor="#ffffffff"
@@ -73,19 +73,17 @@
             android:paddingBottom="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="N/A"
             android:id="@+id/osszAtlagText"
             android:textColor="#ffffffff"
             android:textSize="70dp"
-            android:layout_toRightOf="@+id/textView2"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="false"
             android:gravity="center_vertical|center_horizontal" />
 
         <TextView
@@ -124,5 +122,16 @@
         android:layout_below="@+id/relativeLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:id="@+id/animview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="#ff323232"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"></RelativeLayout>
 
 </RelativeLayout>

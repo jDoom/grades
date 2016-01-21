@@ -21,7 +21,8 @@
         fab:fab_colorNormal="#338fff"
         fab:fab_colorPressed="#327dd9"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentStart="false"
+        android:layout_marginRight="16dp" />
 </RelativeLayout>
